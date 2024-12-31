@@ -1,0 +1,20 @@
+name: CI on code push
+on: push
+
+env:
+    REGISTRY: ghcr.io
+    IMAGE_NAME: ${{github.actor}}/php-test-runner:main
+
+jobs:
+    publish:
+        name: Checkout and publish image to ghcr.io
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Login to ${{ env.REGISTRY }}
+          run: |
+            echo ${{ secrets.PAT_GCR }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+        
+        - name: Build and publish image
+          run: |
+            docker build . --t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --push
