@@ -17,4 +17,4 @@ jobs:
         
         - name: Build and publish image
           run: |
-            docker build . --t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --push
+            docker build . -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} --push
