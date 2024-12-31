@@ -11,6 +11,9 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+        - name: Get latest code
+          uses: actions/checkout@v4
+          
         - name: Login to ${{ env.REGISTRY }}
           run: |
             echo ${{ secrets.PAT_GCR }} | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
